@@ -4,11 +4,13 @@ import { bitter, noto } from "./fonts";
 import Image from "next/image";
 import chefHat from "../../public/chef_hat.svg"
 import whisk from "../../public/whisk.svg"
+import { fetchRecipeName } from "../lib/api";
 
 
 
+export default async function PreviewCard() {
 
-export default function PreviewCard() {
+    const recipeName = fetchRecipeName();
 
     return (
         <div className="flex flex-col shadow-md rounded-3xl">
