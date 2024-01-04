@@ -1,14 +1,26 @@
 import { New_Rocker } from "next/font/google";
 import { Preview } from "./models";
+import { it } from "node:test";
 
-const queryRecipeName = `
+const queryAllRecipesPreview = `
 {
     recipeCollection {
       items {
+        sys {
+          id
+          publishedAt
+          firstPublishedAt
+        }
         name
+        shortDescription
+        mainPicture {
+          url
+        }
       }
     }
-}`
+  }`
+
+
 
 
 async function queryGraphQL(query:string) : Promise<any> {
@@ -31,18 +43,23 @@ function extractArrayItems(fetchResponse:any) : any[] {
 }
 
 export async function fetchRecipePreview() : Promise<Preview[]> {
-    const fetchResponse = await queryGraphQL(queryRecipeName);
+    const fetchResponse = await queryGraphQL(queryAllRecipesPreview);
     const extractedItems = extractArrayItems(fetchResponse)
 
     const arrayItems = extractedItems.map(item => {
         return {
-            type : 'dessert',
+            id : item.sys.id,
+            type : item.type,
             name : item.name,
-            description : "blublu",
-            autor : "Pierre",
-            image: "blublu"
+            description : item.shortDescription,
+            publishedAt : item.sys.publishedAt,
+            firstPublishedAt : item.sys.firstPublishedAt,
+            autor : item.autor,
+            mainPicture: item?.mainPicture?.url
         }
     })
+
+    console.log(arrayItems)
 
     return arrayItems as Preview[]
 }

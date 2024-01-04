@@ -1,7 +1,10 @@
 export type Preview = {
-    type : 'dessert' | 'main' | 'cocktail';
+    id : string;
     name : string;
+    type : 'dessert' | 'main' | 'cocktail';
     description : string;
+    publishedAt : string;
+    firstPublishedAt : string;
     autor : string;
-    image : string;
+    mainPicture : string;
 };

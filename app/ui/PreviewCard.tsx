@@ -1,9 +1,11 @@
 import { bitter, noto } from "./fonts";
 //import { Preview } from "../lib/models";
 import Image from "next/image";
+import Link from "next/link";
 import chefHat from "../../public/chef_hat.svg"
 import whisk from "../../public/whisk.svg"
 import { Preview } from "../lib/models";
+
 
 
 export default function PreviewCard({
@@ -14,6 +16,7 @@ export default function PreviewCard({
 }) {
 
     return (
+        <Link href={`/recipe/${item.id}`}>
         <div className="flex flex-col shadow-md rounded-3xl">
             <div className="flex flex-none relative h-52 w-80">
                 <Image
@@ -47,6 +50,7 @@ export default function PreviewCard({
             </div>
 
         </div>
+        </Link>
     )
 
 }
