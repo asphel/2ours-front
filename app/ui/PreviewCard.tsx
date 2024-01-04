@@ -1,16 +1,17 @@
-'use client'
 import { bitter, noto } from "./fonts";
 //import { Preview } from "../lib/models";
 import Image from "next/image";
 import chefHat from "../../public/chef_hat.svg"
 import whisk from "../../public/whisk.svg"
-import { fetchRecipeName } from "../lib/api";
+import { Preview } from "../lib/models";
 
 
-
-export default async function PreviewCard() {
-
-    const recipeName = fetchRecipeName();
+export default function PreviewCard({
+    item
+} : 
+{
+    item : Preview
+}) {
 
     return (
         <div className="flex flex-col shadow-md rounded-3xl">
@@ -26,8 +27,8 @@ export default async function PreviewCard() {
                 />
             </div>
             <div className="flex flex-col w-80 p-5 rounded-b-3xl bg-white space-y-4">
-                    <h2 className={`${bitter.className} font-medium text-lg line-clamp-2`}>Gâteau de patate douce réunionnais (Gato patate)</h2>
-                    <p className={`${noto.className} font-light text-base line-clamp-3`}>Lorem ipsum dolor sit amet consectetur. Congue turpis iaculis amet non urna a aliquam.</p>
+                    <h2 className={`${bitter.className} font-medium text-lg line-clamp-2`}>{item?.name || "No name"}</h2>
+                    <p className={`${noto.className} font-light text-base line-clamp-3`}>{item?.description || "No description"}</p>
                     <div className="flex flex-row space-x-4">
                         <div className="flex flex-row space-x-2">
                             <Image
@@ -38,7 +39,7 @@ export default async function PreviewCard() {
                         <div className="flex flex-row space-x-2">
                             <Image
                             src={whisk}
-                            alt="Auteur"/>
+                            alt="Durée"/>
                             <p>45min</p>
                         </div>
                     </div>

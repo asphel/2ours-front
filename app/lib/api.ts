@@ -1,3 +1,6 @@
+import { New_Rocker } from "next/font/google";
+import { Preview } from "./models";
+
 const queryRecipeName = `
 {
     recipeCollection {
@@ -23,8 +26,23 @@ async function queryGraphQL(query:string) : Promise<any> {
     ).then((response) => response.json())
 }
 
-export async function fetchRecipeName() : Promise<any> {
-    const recipeName = await queryGraphQL(queryRecipeName);
-    console.log(recipeName?.data?.recipeCollection.items)
-    return recipeName
+function extractArrayItems(fetchResponse:any) : any[] {
+    return fetchResponse?.data?.recipeCollection?.items
+}
+
+export async function fetchRecipePreview() : Promise<Preview[]> {
+    const fetchResponse = await queryGraphQL(queryRecipeName);
+    const extractedItems = extractArrayItems(fetchResponse)
+
+    const arrayItems = extractedItems.map(item => {
+        return {
+            type : 'dessert',
+            name : item.name,
+            description : "blublu",
+            autor : "Pierre",
+            image: "blublu"
+        }
+    })
+
+    return arrayItems as Preview[]
 }
