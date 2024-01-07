@@ -1,6 +1,7 @@
 import { New_Rocker } from "next/font/google";
-import { Preview } from "./models";
+import { FullRecipe, Preview } from "./models";
 import { it } from "node:test";
+import {Document} from '@contentful/rich-text-types'
 
 const queryAllRecipesPreview = `
 {
@@ -18,7 +19,7 @@ const queryAllRecipesPreview = `
         }
       }
     }
-  }`
+  }`;
 
 
 
@@ -42,7 +43,11 @@ function extractArrayItems(fetchResponse:any) : any[] {
     return fetchResponse?.data?.recipeCollection?.items
 }
 
-export async function fetchRecipePreview() : Promise<Preview[]> {
+function extractItem(fetchResponse:any) : any[] {
+    return fetchResponse?.data?.recipeCollection?.items[0]
+}
+
+export async function fetchAllRecipesPreviews() : Promise<Preview[]> {
     const fetchResponse = await queryGraphQL(queryAllRecipesPreview);
     const extractedItems = extractArrayItems(fetchResponse)
 
@@ -51,7 +56,7 @@ export async function fetchRecipePreview() : Promise<Preview[]> {
             id : item.sys.id,
             type : item.type,
             name : item.name,
-            description : item.shortDescription,
+            shortDescription : item.shortDescription,
             publishedAt : item.sys.publishedAt,
             firstPublishedAt : item.sys.firstPublishedAt,
             autor : item.autor,
@@ -59,7 +64,49 @@ export async function fetchRecipePreview() : Promise<Preview[]> {
         }
     })
 
-    console.log(arrayItems)
+    // console.log(arrayItems)
 
     return arrayItems as Preview[]
+}
+
+export async function fetchFullRecipeById(id:string) : Promise<FullRecipe> {
+
+    const query = `{
+        recipeCollection (where : {
+          sys: {
+            id:"${id}"
+          } }){
+          items {
+            name
+            shortDescription
+            fullDescription{
+                json
+            }
+            mainPicture {
+                url
+            }
+            sys {
+                publishedAt
+                firstPublishedAt                
+            }
+          }
+        }
+      }`;
+
+      const response = await queryGraphQL(query)
+      const recipe = extractItem(response)
+
+      const fullDescription = recipe.fullDescription.json as Document;
+
+      return {
+        id : recipe.sys.id,
+        type : recipe.type,
+        name : recipe.name,
+        shortDescription : recipe.shortDescription,
+        fullDescription : fullDescription,
+        publishedAt : recipe.sys.publishedAt,
+        firstPublishedAt : recipe.sys.firstPublishedAt,
+        autor : recipe.autor,
+        mainPicture: recipe?.mainPicture?.url
+    }
 }
