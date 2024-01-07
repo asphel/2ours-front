@@ -1,6 +1,4 @@
 import Image from 'next/image'
-import PreviewList from './ui/PreviewList'
-import { bitter } from './ui/fonts'
 import { fetchFullRecipeById } from '@/app/lib/api'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 

@@ -43,7 +43,7 @@ function extractArrayItems(fetchResponse:any) : any[] {
     return fetchResponse?.data?.recipeCollection?.items
 }
 
-function extractItem(fetchResponse:any) : any[] {
+function extractItem(fetchResponse:any) : any {
     return fetchResponse?.data?.recipeCollection?.items[0]
 }
 
