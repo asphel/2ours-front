@@ -26,12 +26,12 @@ const queryAllRecipesPreview = `
 
 async function queryGraphQL(query:string) : Promise<any> {
     return fetch(
-        `https://graphql.contentful.com/content/v1/spaces/44w6vr2nfirj/environments/master`,
+        `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master`,
         {
             method: 'POST',
             headers : {
                 'Content-type' : 'application/json',
-                'Authorization' : `Bearer iM-uvOk1mx-8psD6C4VZ7XeNxnEHY7CtS1AXmcZ59Ps`
+                'Authorization' : `Bearer ${process.env.CONTENTFUL_ACCESS_TOKEN}`
             },
             body : JSON.stringify({query}),
             next : { tags: ['posts'] }
@@ -63,8 +63,6 @@ export async function fetchAllRecipesPreviews() : Promise<Preview[]> {
             mainPicture: item?.mainPicture?.url
         }
     })
-
-    // console.log(arrayItems)
 
     return arrayItems as Preview[]
 }
