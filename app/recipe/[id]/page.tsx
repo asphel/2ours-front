@@ -4,15 +4,15 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS, MARKS} from '@contentful/rich-text-types'
 import { bitter, noto } from "@/app/ui/fonts";
 
-const Title = ({ children }) => <h2 className={`${bitter.className} font-medium text-lg my-2 py-6 border-b-2 border-b-gray`}>{children}</h2>;
-const ListeItem = ({ children }) => <li className={`${noto.className} font-light text-base list-disc`}>{children}</li>;
+const Title = ({ children } : { children : React.ReactNode }) => <h2 className={`${bitter.className} font-medium text-lg my-2 py-6 border-b-2 border-b-gray`}>{children}</h2>;
+const ListeItem = ({ children } : { children : React.ReactNode}) => <li className={`${noto.className} font-light text-base list-disc`}>{children}</li>;
 
 const options = {
   renderNode: {
-    [BLOCKS.HEADING_2]: (node, children) => <Title>{children}</Title>,
-    [BLOCKS.LIST_ITEM]: (node, children) => <ListeItem>{children}</ListeItem>
+    [BLOCKS.HEADING_2]: (node: any, children: React.ReactNode) => <Title>{children}</Title>,
+    [BLOCKS.LIST_ITEM]: (node: any, children: React.ReactNode) => <ListeItem>{children}</ListeItem>,
   }
-}
+};
 
 export default async function Recipe(
   {
