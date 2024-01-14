@@ -29,7 +29,7 @@ export default function PreviewCard({
                     }}
                 />
             </div>
-            <div className="flex flex-col w-80 p-5 rounded-b-3xl bg-white space-y-4">
+            <div className="flex flex-col w-80 p-5 rounded-b-3xl bg-white space-y-4 h-56">
                     <h2 className={`${bitter.className} font-medium text-lg line-clamp-2`}>{item?.name || "No name"}</h2>
                     <p className={`${noto.className} font-light text-base line-clamp-3`}>{item?.shortDescription || "No description"}</p>
                     <div className="flex flex-row space-x-4">
