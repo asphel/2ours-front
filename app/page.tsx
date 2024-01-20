@@ -2,6 +2,7 @@ import Image from 'next/image'
 import PreviewList from './ui/PreviewList'
 import { fetchAllRecipesPreviews } from './lib/api'
 import { bitter } from './ui/fonts'
+import FoodType from './ui/FoodType'
 
 export default async function Home() {
   const arrayRecipePreview = await fetchAllRecipesPreviews()

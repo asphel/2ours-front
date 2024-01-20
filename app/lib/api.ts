@@ -14,6 +14,7 @@ const queryAllRecipesPreview = `
         }
         name
         shortDescription
+        type
         mainPicture {
           url
         }

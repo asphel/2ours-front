@@ -12,7 +12,15 @@ const config: Config = {
       'gray' : '#A1A1A1',
       'black' : '#1F2024',
       'lightOrange' : '#FEE9D7',
-      'white' : '#FFFFFF'
+      'white' : '#FFFFFF',
+      foodType : {
+        'cocktailBg'  : '#FDD015',
+        'cocktailText'  : '#A38301',
+        'mainBg'  : '#EE712B',
+        'mainText'  : '#8B431A',
+        'dessertBg'  :  '#85DC40',
+        'dessertText'  :  '#508B22'
+      }
     },
     extend: {
       backgroundImage: {
