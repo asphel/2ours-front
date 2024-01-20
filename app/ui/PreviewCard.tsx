@@ -20,7 +20,7 @@ export default function PreviewCard({
         <div className="flex flex-col shadow-md rounded-3xl">
             <div className="flex flex-none relative h-52 w-80">
                 <Image
-                    src="/cardImage.png"
+                    src={`${item?.mainPicture || '/cardImage.png'}`} 
                     alt="un exemple de cardImage"
                     fill
                     className="rounded-t-3xl"

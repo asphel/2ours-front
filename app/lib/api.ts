@@ -49,8 +49,9 @@ function extractItem(fetchResponse:any) : any {
 
 export async function fetchAllRecipesPreviews() : Promise<Preview[]> {
     const fetchResponse = await queryGraphQL(queryAllRecipesPreview);
+    
     const extractedItems = extractArrayItems(fetchResponse)
-
+    console.log(extractedItems)
     const arrayItems = extractedItems.map(item => {
         return {
             id : item.sys.id,
@@ -63,6 +64,8 @@ export async function fetchAllRecipesPreviews() : Promise<Preview[]> {
             mainPicture: item?.mainPicture?.url
         }
     })
+
+    
 
     return arrayItems as Preview[]
 }
@@ -93,6 +96,7 @@ export async function fetchFullRecipeById(id:string) : Promise<FullRecipe> {
 
       const response = await queryGraphQL(query)
       const recipe = extractItem(response)
+      
 
       const fullDescription = recipe.fullDescription.json as Document;
 
