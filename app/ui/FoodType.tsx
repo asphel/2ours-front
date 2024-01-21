@@ -13,7 +13,7 @@ export default function FoodType({
 
     switch (type) {
         case "main": 
-            label = "Plat";
+            label = "Plat principal";
             bgColor = "bg-foodType-mainBg";
             textColor = "text-foodType-mainText";
         break;

@@ -52,7 +52,6 @@ export async function fetchAllRecipesPreviews() : Promise<Preview[]> {
     const fetchResponse = await queryGraphQL(queryAllRecipesPreview);
     
     const extractedItems = extractArrayItems(fetchResponse)
-    console.log(extractedItems)
     const arrayItems = extractedItems.map(item => {
         return {
             id : item.sys.id,
