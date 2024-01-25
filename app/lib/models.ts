@@ -22,3 +22,8 @@ export type FullRecipe = {
     autor : string;
     mainPicture : string;
 };
+
+export type NavigationItem = {
+    label : string;
+    url : string;
+}

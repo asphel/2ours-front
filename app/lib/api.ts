@@ -70,6 +70,50 @@ export async function fetchAllRecipesPreviews() : Promise<Preview[]> {
     return arrayItems as Preview[]
 }
 
+export async function fetchRecipesPreviewsByType(type:string) : Promise<Preview[]> {
+
+
+const queryRecipesPreviewByType = `
+{
+    recipeCollection (where : {type:"${type}"}) {
+      items {
+        sys {
+          id
+          publishedAt
+          firstPublishedAt
+        }
+        name
+        shortDescription
+        type
+        mainPicture {
+          url
+        }
+      }
+    }
+  }`;
+
+  const fetchResponse = await queryGraphQL(queryRecipesPreviewByType);
+  
+  const extractedItems = extractArrayItems(fetchResponse)
+  console.log(extractedItems)
+  const arrayItems = extractedItems.map(item => {
+      return {
+          id : item.sys.id,
+          type : item.type,
+          name : item.name,
+          shortDescription : item.shortDescription,
+          publishedAt : item.sys.publishedAt,
+          firstPublishedAt : item.sys.firstPublishedAt,
+          autor : item.autor,
+          mainPicture: item?.mainPicture?.url
+      }
+  })
+
+  
+
+  return arrayItems as Preview[]
+}
+
 export async function fetchFullRecipeById(id:string) : Promise<FullRecipe> {
 
     const query = `{
